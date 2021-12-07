@@ -5,14 +5,20 @@
 }
 
 .formularioValidado {
-    border: 1px solid lightblue;
+    border: 1px solid rgb(247, 165, 150);
     border-radius: 20px;
     padding: 10px;
     margin: 10px;
+    background-color:rgb(250, 174, 161);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .formularioValidado input {
     margin-top: 4px;
+    background-color: rgb(248, 192, 182);
+text-emphasis-color: white;
+text-decoration-color: white;
+    
 }
 
 .formularioValidado .botones {
