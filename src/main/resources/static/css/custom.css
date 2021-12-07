@@ -21,6 +21,10 @@ text-decoration-color: white;
     
 }
 
+.navbar .superior_bar{
+    background-color: rgb(241, 201, 194);
+}
+
 .formularioValidado .botones {
     margin-top: 6px;
 }
