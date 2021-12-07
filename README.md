@@ -1,6 +1,11 @@
 # Grupo 5
 Los integrantes del grupo son Pablo Martínez, Eros Guerrero, Andrés Romero , Alberto Pascual y Cristina Díez.
 
+Cambios respecto a la práctica 5
+La práctica 5 la diseñamos para móvil, así que no vamos a reutilizar prácticamente nada de ella. Además en esta entrega nos hemos centrado en implementar funcionalidad básica y no en diseño
+
+En cuanto a la funcionalidad, de la parte básica solo nos falta modificar grupo, porque queremos preguntar algo al respecto en la siguiente clase
+
 # iu2122
 
 Servidor y código de plantilla para una interfaz de gestión de valoraciones de películas, a usar para las prácticas de la asignatura *Interfaces de Usuario* de los grados de Informática de la Universidad Complutense, en su edición 2021-22.
