@@ -484,13 +484,9 @@ document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
         document.querySelectorAll(".iucontrol.group button.rm").forEach(b =>
             b.addEventListener('click', e => Pmgr.rmGroup(e.target.dataset.id).then(update)));
         // botones de borrar usuarios
-        document.querySelectorAll(".iucontrol.user button.rm").forEach(b => {
-
-            const datosUsActual = Pmgr.resolve(uid);
-
-            if(datosUsActual.role)
+        document.querySelectorAll(".iucontrol.user button.rm").forEach(b => 
             b.addEventListener('click', e => Pmgr.rmUser(e.target.dataset.id).then(update))
-        });
+        );
 
 
     } catch (e) {
