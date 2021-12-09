@@ -402,6 +402,10 @@ function update() {
 document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
     b.addEventListener('click', e => {
 
+        const datosUsActual = Pmgr.resolve(userId);
+        console.log(datosUsActual.role);
+
+        
         const id = e.target.dataset.id; // lee el valor del atributo data-id del boton
         console.log(id); //id es el del usuario que se ha pulsado el boton editar
         editButtonUserId = id;
@@ -476,8 +480,13 @@ document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
         document.querySelectorAll(".iucontrol.group button.rm").forEach(b =>
             b.addEventListener('click', e => Pmgr.rmGroup(e.target.dataset.id).then(update)));
         // botones de borrar usuarios
-        document.querySelectorAll(".iucontrol.user button.rm").forEach(b =>
-            b.addEventListener('click', e => Pmgr.rmUser(e.target.dataset.id).then(update)));
+        document.querySelectorAll(".iucontrol.user button.rm").forEach(b => {
+
+            const datosUsActual = Pmgr.resolve(uid);
+
+            if(datosUsActual.role)
+            b.addEventListener('click', e => Pmgr.rmUser(e.target.dataset.id).then(update))
+        });
 
 
     } catch (e) {
