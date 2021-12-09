@@ -96,8 +96,9 @@ function createMovieItem(movie) {
     ).join("");
 
     return `
-    <div class="card" data-id="${movie.id}">
-    <div class="card-header"">
+    <div class"col">
+    <div style="height: 300px;" class="card" data-id="${movie.id}">
+    <div style="height: 70px;" class="card-header"">
         <h4 class="mb-0" title="${movie.id}">
             ${movie.name} <small><i>(${movie.year})</i></small>
         </h4>
@@ -142,23 +143,24 @@ function createGroupItem(group) {
     ).join(" ");
 
     return `
-    <div class="card">
-    <div class="card-header">
-        <h4 class="mb-0" title="${group.id}">
-            <b class="pcard">${group.name}</b>
-        </h4>
-    </div>
-    <div class="card-body pcard">
-        <div class="row-sm-11">
-            <span class="badge bg-primary">${Pmgr.resolve(group.owner).username}</span>
-            ${allMembers}
-            ${allPending}
+    <div class="col">
+    <div style="height: 200px;" class="card">
+        <div style="height: 70px;" class="card-header">
+            <h4 class="mb-0" title="${group.id}">
+                <b class="pcard">${group.name}</b>
+            </h4>
         </div>
-        <div class="row-sm-1 iucontrol group">
-            <button class="rm" data-id="${group.id}">🗑️</button>
-            <button class="edit" data-id="${group.id}">✏️</button>
-        </div>
-    </div>              
+        <div class="card-body pcard">
+            <div class="row-sm-11">
+                <span class="badge bg-primary">${Pmgr.resolve(group.owner).username}</span>
+                ${allMembers}
+                ${allPending}
+            </div>
+            <div class="row-sm-1 iucontrol group">
+                <button class="rm" data-id="${group.id}">🗑️</button>
+                <button class="edit" data-id="${group.id}">✏️</button>
+            </div>
+         </div>              
     </div>
     </div>
 `;
@@ -176,8 +178,9 @@ function createUserItem(user) {
     ).join(" ");
 
     return `
-    <div class="card">
-    <div class="card-header">
+    <div class="col">
+    <div style="height: 200px;" class="card">
+    <div style="height: 70px;" class="card-header">
         <h4 class="mb-0" title="${user.id}">
             <b class="pcard">${user.username}</b>
         </h4>
@@ -191,6 +194,7 @@ function createUserItem(user) {
             <button class="rm" data-id="${user.id}">🗑️</button>
             <button class="edit" data-id="${user.id}">✏️</button>
         </div>        
+    </div>
     </div>
     </div>
 `;
