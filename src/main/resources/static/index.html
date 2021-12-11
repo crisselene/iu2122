@@ -185,178 +185,209 @@
         </div>
     </nav>
 
-    <!-- container-fluid expande el contenedor para que ocupe todo el espacio disponible -->
-    <div class="container-fluid">
-        <div class="row">
-            <!-- panel lateral, demostrando acordeones (secciones expansibles) -->
-            <div class="col-sm-4 iulist">
-                <div class="row">
-                    <div class="col-auto">
-                        <h2>Peliculas </h2>
-                    </div>
-                    <div class="col input-group mb-3">
-                        <input type="search" class="form-control" id="movieSearch" placeholder="Título (Ej: Aladdín)" aria-describedby="searchMovieLabel">
-                        <span class="input-group-text" id="searchMovieLabel">🔍</span>
-                    </div>
-                </div>
-                
-                <div id="addMovie" class="formularioValidado">
-                    <h3>Añadir película</h3>
-                    <form class="row">
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="f1" name="name" placeholder="Título" required>
+
+    <!-- navbar nuestro -->
+    <!-- ver https://getbootstrap.com/docs/5.0/components/navs-tabs/#javascript-behavior -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="peliculas-tab" data-bs-toggle="tab" data-bs-target="#peliculasTab" type="button" role="tab" aria-controls="home" aria-selected="true">Peliculas</button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="grupos-tab" data-bs-toggle="tab" data-bs-target="#gruposTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Grupos</button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuariosTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuarios</button>
+        </li>
+    </ul>
+
+    <!-- contenidos del navbar, tienen q ir dentro del div de class=tab-content -->
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="peliculasTab" role="tabpanel" aria-labelledby="peliculas-tab">
+            <div id="peliculas">
+                <ul>
+                    <div class="col-sm-4 iulist">
+                        <div class="row">
+                            <div class="col-auto">
+                                <h2>Peliculas</h2>
+                            </div>
+                            <div class="col input-group mb-3">
+                                <input type="search" class="form-control" id="movieSearch" placeholder="Título (Ej: Aladdín)" aria-describedby="searchMovieLabel">
+                                <span class="input-group-text" id="searchMovieLabel">🔍</span>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="f2" name="imdb" placeholder="ID en IMDB (ej.: tt1234567)" required pattern="tt[0-9]+">
-                        </div>
-
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" name="director" placeholder="Director" required>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" name="actors" placeholder="Actores" required>
-                        </div>
-
-                        <div class="col-md-4">
-                            <input type="number" class="form-control" name="year" placeholder="Año de estreno" min="1800" max="2022" required>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="number" class="form-control" name="minutes" placeholder="Duración en minutos" min="0" max="600" required>
-                        </div>
-
-                        <div class="col-12 botones">
-                            <button class="btn btn-primary" type="submit">Añadir</button>
-                            <button class="btn btn-secondary generar" type="button">Generar</button>
-                        </div>
-                    </form>
-                </div>
-
-
-
-
-
-            </div>
-
-            <div class="col-sm-4 iulist">
-                <h2>Grupos</h2>
-                
-                <div id="addGroup" class="formularioValidado2">
-                    
-                    <h3>Añadir Grupo</h3>
-                    <form class="row" id="addGroupForm">
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="f3" name="name" placeholder="Nombre de grupo" required>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="f4" name="owner" placeholder="Nombre de propietario" required>
-                        </div>
-
-                        <button style="display: none" type="submit">Invisible, sólo para validación</button>
                         
-                    </form>
-                    <!-- botones fuera del form, para cogerlos desde el js con el id addGroup-->
-                    <div class="col-12 botones">
-                        <button class="btn btn-primary add" type="submit">Añadir</button>
-                        <button class="btn btn-secondary generar" type="button">Generar</button>
+                        <div id="addMovie" class="formularioValidado">
+                            <h3>Añadir película</h3>
+                            <form class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="f1" name="name" placeholder="Título" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="f2" name="imdb" placeholder="ID en IMDB (ej.: tt1234567)" required pattern="tt[0-9]+">
+                                </div>
+        
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="director" placeholder="Director" required>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="actors" placeholder="Actores" required>
+                                </div>
+        
+                                <div class="col-md-4">
+                                    <input type="number" class="form-control" name="year" placeholder="Año de estreno" min="1800" max="2022" required>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" name="minutes" placeholder="Duración en minutos" min="0" max="600" required>
+                                </div>
+        
+                                <div class="col-12 botones">
+                                    <button class="btn btn-primary" type="submit">Añadir</button>
+                                    <button class="btn btn-secondary generar" type="button">Generar</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
 
-
-                </div>
-
-                
-
-            </div>
-
-            <div class="col-sm-4 iulist">
-                <h2>Usuarios</h2>
-                
-                <div id="addUser" class="formularioValidado3">
-
-                    <h3>Añadir Usuario</h3>
-                    <form class="row" id="addUserForm">
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="f5" name="name" placeholder="Nombre de usuario" required>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Peliculas
+                          </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+          
+          
+                              <div class="row row-cols-1 row-cols-md-3 g-4" id="movies">
+          
+                              </div>
+          
+          
+                          </div>
                         </div>
-                        <div class="col-md-6">
-                            <input type="password" class="form-control" id="f6" name="passw" placeholder="Contraseña" required>
-                        </div>
+                      </div>
 
-                        <button style="display: none" type="submit">Invisible, sólo para validación</button>
-                        
-                    </form>
-
-                    <div class="col-12 botones">
-                        <button class="btn btn-primary add" type="submit">Añadir</button>
-                        <button class="btn btn-secondary generar" type="button">Generar</button>
-                    </div>
-
-                </div>
-
-
-                
-
-
+                </ul>
             </div>
         </div>
 
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Peliculas
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-
-
-                    <div class="row row-cols-1 row-cols-md-3 g-4" id="movies">
-
+        <!-- PESTAÑA DEL NAVBAR PARA GRUPOS -->
+        <div class="tab-pane fade" id="gruposTab" role="tabpanel" aria-labelledby="grupos-tab">
+            <div id="grupos">
+                <ul>
+                    <div class="col-sm-4 iulist">
+                        <h2>Grupos</h2>
+                        
+                        <div id="addGroup" class="formularioValidado2">
+                            
+                            <h3>Añadir Grupo</h3>
+                            <form class="row" id="addGroupForm">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="f3" name="name" placeholder="Nombre de grupo" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="f4" name="owner" placeholder="Nombre de propietario" required>
+                                </div>
+        
+                                <button style="display: none" type="submit">Invisible, sólo para validación</button>
+                                
+                            </form>
+                            <!-- botones fuera del form, para cogerlos desde el js con el id addGroup-->
+                            <div class="col-12 botones">
+                                <button class="btn btn-primary add" type="submit">Añadir</button>
+                                <button class="btn btn-secondary generar" type="button">Generar</button>
+                            </div>
+                        </div>
                     </div>
 
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne2">
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
+                            Grupos
+                          </button>
+                        </h2>
+                        <div id="collapseOne2" class="accordion-collapse collapse show" aria-labelledby="headingOne2" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                         
+        
+                            <div class="row row-cols-1 row-cols-md-3 g-4" id="groups">
+        
+                            </div>
+        
+                          </div>
+                        </div>
+                    </div>
 
-                </div>
-              </div>
+                </ul>
             </div>
+        </div>
 
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne2">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
-                    Grupos
-                  </button>
-                </h2>
-                <div id="collapseOne2" class="accordion-collapse collapse show" aria-labelledby="headingOne2" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                 
-
-                    <div class="row row-cols-1 row-cols-md-3 g-4" id="groups">
-
+        <!-- PESTAÑA DEL NAVBAR PARA USUARIOS -->
+        <div class="tab-pane fade" id="usuariosTab" role="tabpanel" aria-labelledby="usuarios-tab">
+            <div id="usuarios">
+                <ul>
+                    <div class="col-sm-4 iulist">
+                        <h2>Usuarios</h2>
+                        
+                        <div id="addUser" class="formularioValidado3">
+        
+                            <h3>Añadir Usuario</h3>
+                            <form class="row" id="addUserForm">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="f5" name="name" placeholder="Nombre de usuario" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="password" class="form-control" id="f6" name="passw" placeholder="Contraseña" required>
+                                </div>
+        
+                                <button style="display: none" type="submit">Invisible, sólo para validación</button>
+                                
+                            </form>
+        
+                            <div class="col-12 botones">
+                                <button class="btn btn-primary add" type="submit">Añadir</button>
+                                <button class="btn btn-secondary generar" type="button">Generar</button>
+                            </div>
+                        </div>
                     </div>
 
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne3">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
-                    Usuarios
-                  </button>
-                </h2>
-                <div id="collapseOne3" class="accordion-collapse collapse show" aria-labelledby="headingOne3" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-
-
-                    <div class="row row-cols-1 row-cols-md-3 g-4" id="users">
-
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne3">
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
+                            Usuarios
+                          </button>
+                        </h2>
+                        <div id="collapseOne3" class="accordion-collapse collapse show" aria-labelledby="headingOne3" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="row row-cols-1 row-cols-md-3 g-4" id="users">
+        
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
+                </ul>
+            </div>
+        </div>
+
+        
+    </div>
 
 
-                  </div>
-                </div>
-              </div>
-
+    <!-- container-fluid expande el contenedor para que ocupe todo el espacio disponible -->
+    <div class="container-fluid">
+    
+        <div class="row">
+            <!-- panel lateral, demostrando acordeones (secciones expansibles) -->
+            
+            <!-- AQUI IRIA TODO LO DE LOS CUADRADOS DE AÑADIR PELI, GRUPO... QUE HE QUITADO Y PUESTO EN EL NAVBAR -->
+        
+        </div>
+    
+        <div class="accordion" id="accordionExample">
+            <!-- AQUI IRIA TODO LO DE LOS ACORDEONES DE PELIS, GRUPOS... QUE HE QUITADO Y PUESTO EN EL NAVBAR -->
 
         </div>
 
