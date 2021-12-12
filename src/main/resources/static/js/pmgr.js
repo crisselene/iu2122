@@ -446,8 +446,6 @@ document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
         
     }));
 
-
-
         // botones de evaluar películas
         document.querySelectorAll(".iucontrol.movie button.rate").forEach(b =>
             b.addEventListener('click', e => {
@@ -501,7 +499,18 @@ document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
                 appendTo(select, `<option value="${m.id}">${m.name}</option>`));
         }
     );
+
+
 }
+
+{
+    //funcionalidad dle boton de login: hacer visible su modal (codigo del modal, al final de este js junto a los otros modales)
+    //se deja como bloque de codigo independiente para que funcione aunque no se haya hecho aun login (por eso no esta en update)
+    document.querySelector("#prueba button.log").addEventListener('click', e => {
+        console.log("boton login pulsado");
+       modalLogin.show();
+    });
+    }
 
 //
 // PARTE 2:
@@ -514,7 +523,7 @@ const modalRateMovie = new bootstrap.Modal(document.querySelector('#movieRate'))
 
 //nuevos modales
 const modalEditUser = new bootstrap.Modal(document.querySelector('#userEdit')); //modal modificar usuario
-
+const modalLogin = new bootstrap.Modal(document.querySelector('#modalLogin')); //modal para login
 // si lanzas un servidor en local, usa http://localhost:8080/
 const serverUrl = "http://gin.fdi.ucm.es/iu/";
 
@@ -529,9 +538,13 @@ const login = (username, password) => {
     Pmgr.login(username, password) // <-- tu nombre de usuario y password aquí
         .then(d => {
             console.log("login ok!", d);
-            update(d);
+  //          update(d);
             userId = Pmgr.state.users.find(u =>
                 u.username == username).id;
+                //finalmente creamos e insertamos el navbar en funcion del rol del usuario
+                cretaeCustomNavbar();
+                update(d); //hacemos update despues de saber la id del usuario actual, para poder mostrar un navbar u otro en funcion de su rol
+                console.log(userId);
         })
         .catch(e => {
             console.log(e, `error ${e.status} en login (revisa la URL: ${e.url}, y verifica que está vivo)`);
@@ -747,6 +760,128 @@ login("g5", "8rACc"); // <-- tu nombre de usuario y password aquí
       //  }
     });
     
+}
+
+//login
+{
+
+    const f = document.querySelector("#loginForm");
+    
+    document.querySelector("#modalLogin button.login").addEventListener('click', e => {
+        console.log("boton aceptar login pulsado");
+       if(f.checkValidity()){
+        login(f.querySelector('input[name="name"]').value, f.querySelector('input[name="passw"]').value)//.then(() => {   
+            
+            f.reset();
+            modalLogin.hide();
+             update();
+        
+           //  });;           
+           /*    const us = new Pmgr.User(-1,
+               f.querySelector('input[name="name"]').value,
+               f.querySelector('input[name="passw"]').value);
+               Pmgr.addUser(us).then(() => {   
+                   f.reset();
+                    update();
+            });*/
+        }
+        else{
+            e.preventDefault();
+            f.querySelector("button[type=submit]").click();
+            console.log("fallo");
+        }
+    
+        //    Pmgr.addUser(us).then(() => {
+          //      //formulario.reset() // limpia el formulario si todo OK
+            //    update();
+           // });
+    
+      //  }
+    });
+    
+}
+
+//las dos funcionan
+/*function miPruebaInserccion(append)
+{
+
+    append("#prueba", createHTML());
+
+}
+function createHTML()
+{
+return`
+<h5 class="modal-title" id="pruebatitulo">Mi prueba</h5>
+`;
+}*/
+
+function cretaeCustomNavbar()
+{
+
+    const append = (sel, html) =>
+    document.querySelector(sel).insertAdjacentHTML("beforeend", html);
+    const emp = (sel) => {
+        const destino = document.querySelector(sel);
+        while (destino.firstChild) {
+            destino.removeChild(destino.firstChild);
+        }
+    }
+    const datosUsActual = Pmgr.resolve(userId);//obtenemos datos del usuario actual
+    console.log(datosUsActual.role);
+
+    emp("#customNavbar");//vaciamos el contendor donde va el navbar
+    if(datosUsActual.role == "ADMIN,USER")//metemos un codigo html u otro en funcion del rol del usuario
+    {
+     append("#customNavbar", customNavbarAdminHTML());
+    }
+    else{
+        append("#customNavbar", customNavbarUserHTML());
+    }
+
+    //hacemos que se pulse el boton peliculas del navbar para que siempre que s ehaga login se vea esa vista.
+    //esto evita que si un usuario admin estaba en la vista de usuarios, y se logea entonces un usuario user,
+    //este pueda ver la vista de usuarios, forzandole asi a ir a la vista de peliculas
+    document.querySelector("#peliculas-tab").click();
+    //quizas seria necesario hacer un update tras el click, pero como se llama a esta funcion desde login, es seguro que despues se llamara a update
+}
+
+function customNavbarAdminHTML()
+{
+    return`
+    <!-- navbar nuestro -->
+    <!-- ver https://getbootstrap.com/docs/5.0/components/navs-tabs/#javascript-behavior -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="peliculas-tab" data-bs-toggle="tab" data-bs-target="#peliculasTab" type="button" role="tab" aria-controls="home" aria-selected="true">Peliculas</button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="grupos-tab" data-bs-toggle="tab" data-bs-target="#gruposTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Grupos</button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuariosTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuarios</button>
+        </li>
+    </ul>
+    `;
+}
+
+function customNavbarUserHTML()
+{
+    return`
+    <!-- navbar nuestro -->
+    <!-- ver https://getbootstrap.com/docs/5.0/components/navs-tabs/#javascript-behavior -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="peliculas-tab" data-bs-toggle="tab" data-bs-target="#peliculasTab" type="button" role="tab" aria-controls="home" aria-selected="true">Peliculas</button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="grupos-tab" data-bs-toggle="tab" data-bs-target="#gruposTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Grupos</button>
+        </li>
+
+    </ul>
+    `;
 }
 
 
