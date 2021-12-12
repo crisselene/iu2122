@@ -60,8 +60,35 @@ text-decoration-color: white;
 }
 
 .navbar .superior_bar{
-    background-color: rgb(241, 201, 194);
+    background-color: rgb(63, 63, 70);
+    float: inline-start;
 }
+
+
+.customNavbar ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(63, 63, 70);
+}
+
+.collapse button{
+    float: inline-start;
+    margin: 10px;
+}
+
+ li a{
+    display: block;
+    color: white !important;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+  }
 
 .formularioValidado .botones {
     margin-top: 6px;

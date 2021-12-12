@@ -175,30 +175,21 @@
 
 
 
-<!-- contenedor de prueba para poner temporalmente el boton de login-->
-<div id="prueba" >
-    <button type="button" class="btn btn-primary log">Iniciar Sesion</button>
-</div>
 
-
-
-
-
-    <!-- barra de navegación -->
+    <!-- barra de navegación  
     <nav class="navbar navbar-expand-lg navbar-light bg-light" >
         <div class="container-fluid superior_bar">
-            <!-- nombre del sitio; es un enlace que lleva a la página ppal -->
-            <img src="img/cine.png" width="40px">
-            <a class="navbar-brand" href="#">IU 2021-22</a>
-            <!-- menu hamburguesa si no cabe todo -->
+            
+            <img src="img/pelimax.png" width="220px" >
+                      
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="peliculas-tab" data-bs-toggle="tab" data-bs-target="#peliculasTab" role="tab" aria-controls="home" aria-selected="true">Peliculas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://www.imdb.com/">Imdb</a>
@@ -217,40 +208,61 @@
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
+                     
+<div id="prueba" >
+    <button type="button" class="btn btn-primary log">Iniciar Sesion</button>
+</div>
                 </ul>
             </div>
         </div>
     </nav>
-
-
-    <div id="customNavbar">
-         <!-- por defecto mostramos la vista que veria un usuario normal(esto se veria si no esta activado el login automatico con nuestra cuenta g5). Se actualizara via js segun el rol del usuario que haga login-->
-         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="peliculas-tab" data-bs-toggle="tab" data-bs-target="#peliculasTab" type="button" role="tab" aria-controls="home" aria-selected="true">Peliculas</button>
-            </li>
-    
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="grupos-tab" data-bs-toggle="tab" data-bs-target="#gruposTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Grupos</button>
-            </li>
-        </ul>
+-->
+   
+<!-- barra de navegación  -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+    <div class="container-fluid superior_bar">
         
+        <img src="img/pelimax.png" width="220px" >
+                  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav mr-auto" id="myTab" role="tablist">
+        
+                <li class="nav-item" role="presentation">
+                    <a id="peliculas-tab" data-bs-toggle="tab" data-bs-target="#peliculasTab" role="tab" aria-controls="home" aria-selected="true">Peliculas</a>
+                </li>
+        
+                <li class="nav-item" role="presentation">
+                    <a  id="grupos-tab" data-bs-toggle="tab" data-bs-target="#gruposTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Grupos</button>
+                </li>
+            
+                <!-- contenedor de prueba para poner temporalmente el boton de login-->
+<div id="prueba" >
+<button type="button" class="btn btn-primary log">Iniciar Sesion</button>
+</div>
+            </ul>
+        </div>
     </div>
+</nav>
+
 
     <!-- navbar nuestro -->
     <!-- ver https://getbootstrap.com/docs/5.0/components/navs-tabs/#javascript-behavior -->
     <!-- este codigo se pondra usando js en el div de arriba, cambiando en funcion del rol del usuario (admin o user)-->
- <!--   <ul class="nav nav-tabs" id="myTab" role="tablist">
+ <!--   <ul class="nav mr-auto" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="peliculas-tab" data-bs-toggle="tab" data-bs-target="#peliculasTab" type="button" role="tab" aria-controls="home" aria-selected="true">Peliculas</button>
+            <a id="peliculas-tab" data-bs-toggle="tab" data-bs-target="#peliculasTab" type="button" role="tab" aria-controls="home" aria-selected="true">Peliculas</button>
         </li>
 
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="grupos-tab" data-bs-toggle="tab" data-bs-target="#gruposTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Grupos</button>
+            <a id="grupos-tab" data-bs-toggle="tab" data-bs-target="#gruposTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Grupos</button>
         </li>
 
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuariosTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuarios</button>
+            <a id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuariosTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuarios</button>
         </li>
     </ul>-->
 
@@ -331,7 +343,6 @@
                 <ul>
                     <div class="col-sm-4 iulist">
                         <h2>Grupos</h2>
-                        
                         <div id="addGroup" class="formularioValidado2">
                             
                             <h3>Añadir Grupo</h3>
