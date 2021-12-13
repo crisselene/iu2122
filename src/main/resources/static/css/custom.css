@@ -73,9 +73,17 @@ text-decoration-color: white;
     background-color: rgb(63, 63, 70);
 }
 
-.collapse button{
+
+.collapse .nav-item button{
+    background-color: rgb(63, 63, 70) !important;
+    border-color: rgb(63, 63, 70) !important;
+    color: white !important;
     float: inline-start;
     margin: 10px;
+}
+
+.collapse .nav-item button:hover{
+    background-color: #111 !important;
 }
 
  li a{
@@ -85,10 +93,6 @@ text-decoration-color: white;
     padding: 14px 16px;
     text-decoration: none;
 }
-
-li a:hover {
-    background-color: #111;
-  }
 
 .formularioValidado .botones {
     margin-top: 6px;
