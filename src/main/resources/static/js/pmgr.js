@@ -510,7 +510,7 @@ document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
         console.log("boton login pulsado");
        modalLogin.show();
     });
-    }
+}
 
 //
 // PARTE 2:
@@ -829,15 +829,19 @@ function cretaeCustomNavbar()
     const datosUsActual = Pmgr.resolve(userId);//obtenemos datos del usuario actual
     console.log(datosUsActual.role);
 
-    emp("#customNavbar");//vaciamos el contendor donde va el navbar
+    //emp("#customNavbar");//vaciamos el contendor donde va el navbar
+    
+    emp("#navbarSupportedContent");
     if(datosUsActual.role == "ADMIN,USER")//metemos un codigo html u otro en funcion del rol del usuario
     {
-     append("#customNavbar", customNavbarAdminHTML());
+    // append("#customNavbar", customNavbarAdminHTML());
+    append("#navbarSupportedContent", customNavbarAdminHTML());
     }
     else{
-        append("#customNavbar", customNavbarUserHTML());
+       // append("#customNavbar", customNavbarUserHTML());
+       append("#navbarSupportedContent", customNavbarUserHTML());
     }
-
+    creteloggingfunction();
     //hacemos que se pulse el boton peliculas del navbar para que siempre que s ehaga login se vea esa vista.
     //esto evita que si un usuario admin estaba en la vista de usuarios, y se logea entonces un usuario user,
     //este pueda ver la vista de usuarios, forzandole asi a ir a la vista de peliculas
@@ -863,6 +867,34 @@ function customNavbarAdminHTML()
             <button class="nav-link" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuariosTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuarios</button>
         </li>
     </ul>
+
+    <div id="prueba" >
+    <button type="button" class="btn btn-primary log">Iniciar Sesion</button>
+    </div>
+    `;
+}
+
+function customNavbarAdminHTML2()
+{
+    return`
+    <ul class="nav mr-auto" id="myTab" role="tablist">
+        
+    <li class="nav-item" role="presentation">
+        <a id="peliculas-tab" data-bs-toggle="tab" data-bs-target="#peliculasTab" role="tab" aria-controls="home" aria-selected="true">Peliculas</a>
+    </li>
+
+    <li class="nav-item" role="presentation">
+        <a  id="grupos-tab" data-bs-toggle="tab" data-bs-target="#gruposTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Grupos</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuariosTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuarios</button>
+    </li>
+
+    <!-- contenedor de prueba para poner temporalmente el boton de login-->
+<div id="prueba" >
+<button type="button" class="btn btn-primary log">Iniciar Sesion</button>
+</div>
+</ul>
     `;
 }
 
@@ -881,7 +913,42 @@ function customNavbarUserHTML()
         </li>
 
     </ul>
+
+    <div id="prueba" >
+    <button type="button" class="btn btn-primary log">Iniciar Sesion</button>
+    </div>
     `;
+}
+
+function customNavbarUserHTML2()
+{
+    return`
+    <ul class="nav mr-auto" id="myTab" role="tablist">
+        
+                <li class="nav-item" role="presentation">
+                    <a id="peliculas-tab" data-bs-toggle="tab" data-bs-target="#peliculasTab" role="tab" aria-controls="home" aria-selected="true">Peliculas</a>
+                </li>
+        
+                <li class="nav-item" role="presentation">
+                    <a  id="grupos-tab" data-bs-toggle="tab" data-bs-target="#gruposTab" type="button" role="tab" aria-controls="profile" aria-selected="false">Grupos</button>
+                </li>
+            
+                <!-- contenedor de prueba para poner temporalmente el boton de login-->
+<div id="prueba" >
+<button type="button" class="btn btn-primary log">Iniciar Sesion</button>
+</div>
+            </ul>
+    `;
+}
+
+function creteloggingfunction()
+{
+    //funcionalidad dle boton de login: hacer visible su modal (codigo del modal, al final de este js junto a los otros modales)
+    //se deja como bloque de codigo independiente para que funcione aunque no se haya hecho aun login (por eso no esta en update)
+    document.querySelector("#prueba button.log").addEventListener('click', e => {
+        console.log("boton login pulsado");
+       modalLogin.show();
+    });
 }
 
 
