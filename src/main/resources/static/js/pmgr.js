@@ -868,9 +868,9 @@ function customNavbarAdminHTML()
         </li>
     </ul>
 
-    <div id="prueba" >
+    <!--<div id="prueba" >
     <button type="button" class="btn btn-primary log">Iniciar Sesion</button>
-    </div>
+    </div>-->
     `;
 }
 
@@ -891,9 +891,9 @@ function customNavbarAdminHTML2()
     </li>
 
     <!-- contenedor de prueba para poner temporalmente el boton de login-->
-<div id="prueba" >
+<!--<div id="prueba" >
 <button type="button" class="btn btn-primary log">Iniciar Sesion</button>
-</div>
+</div>-->
 </ul>
     `;
 }
