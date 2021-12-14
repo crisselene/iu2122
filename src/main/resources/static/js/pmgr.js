@@ -138,8 +138,9 @@ function createGroupItem(group) {
     let allPending = group.requests.map((id) => Pmgr.resolve(id)).map(r =>
         `<span class="badge bg-${waitingForGroup(r) ? "warning" : "info"}"
             title="Esperando aceptación de ${waitingForGroup(r) ? "grupo" : "usuario"}">
-            ${Pmgr.resolve(r.user).username}</span>`
-
+            ${Pmgr.resolve(r.user).username}<button style="border:0px; background-color:transparent;" class="edit" data-id="${r.id}">✏️</button></span>
+            `
+//metido arriba un boton por cada request, el cual guarda ademas en dat-id la id de la request
     ).join(" ");
 
     return `
@@ -158,7 +159,8 @@ function createGroupItem(group) {
             </div>
             <div class="row-sm-1 iucontrol group">
                 <button class="rm" data-id="${group.id}">🗑️</button>
-                <button class="edit" data-id="${group.id}">✏️</button>
+                <!--<button class="edit" data-id="${group.id}">✏️</button>-->
+                <button class="addRequest" data-id="${group.id}">✏️</button>
             </div>
          </div>              
     </div>
@@ -402,6 +404,33 @@ function update() {
                 modalEditMovie.show(); // ya podemos mostrar el formulario
             }));
 
+            //boton enviar solicitudes de grupo
+        document.querySelectorAll(".iucontrol.group button.addRequest").forEach(b =>
+                b.addEventListener('click', e => {
+                    const groupId = e.target.dataset.id; // lee el valor del atributo data-id del boton
+                    const group = Pmgr.resolve(groupId);//info de ese grupo
+                    console.log("id grupo = " + groupId);
+
+                    //const request = new Pmgr.Request(-1,userId,groupId, Pmgr.RequestStatus.AWAITING_GROUP);
+                   // Pmgr.addRequest(request)//.then(() =>{
+                    Pmgr.addRequest({user: userId, group: groupId, status: Pmgr.RequestStatus.AWAITING_GROUP});
+                   //     f.reset();
+                   //     update();
+                   // });
+                    modalRequestAdded.show();
+
+                 /*   const id = e.target.dataset.id; // lee el valor del atributo data-id del boton
+                    const movie = Pmgr.resolve(id);
+                    const formulario = document.querySelector("#movieEditForm");
+                    for (let [k, v] of Object.entries(movie)) {
+                        // rellenamos el formulario con los valores actuales
+                        const input = formulario.querySelector(`input[name="${k}"]`);
+                        if (input) input.value = v;
+                    }
+    */
+                   // modalEditMovie.show(); // ya podemos mostrar el formulario
+                }));
+
 // botones de editar usuarios
 document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
     b.addEventListener('click', e => {
@@ -524,6 +553,7 @@ const modalRateMovie = new bootstrap.Modal(document.querySelector('#movieRate'))
 //nuevos modales
 const modalEditUser = new bootstrap.Modal(document.querySelector('#userEdit')); //modal modificar usuario
 const modalLogin = new bootstrap.Modal(document.querySelector('#modalLogin')); //modal para login
+const modalRequestAdded = new bootstrap.Modal(document.querySelector('#modalRequestAdded')); //modal confirmacion request
 // si lanzas un servidor en local, usa http://localhost:8080/
 const serverUrl = "http://gin.fdi.ucm.es/iu/";
 
@@ -814,6 +844,37 @@ return`
 <h5 class="modal-title" id="pruebatitulo">Mi prueba</h5>
 `;
 }*/
+
+//boton aceptar modal confirmacion envio requets a grupo
+{
+
+    // const f = document.querySelector("#loginForm");
+     
+     document.querySelector("#modalRequestAdded button.accept").addEventListener('click', e => {
+         //console.log("boton aceptar login pulsado");
+        
+             modalRequestAdded.hide();
+              update();
+         
+            //  });;           
+            /*    const us = new Pmgr.User(-1,
+                f.querySelector('input[name="name"]').value,
+                f.querySelector('input[name="passw"]').value);
+                Pmgr.addUser(us).then(() => {   
+                    f.reset();
+                     update();
+             });*/
+     
+         //    Pmgr.addUser(us).then(() => {
+           //      //formulario.reset() // limpia el formulario si todo OK
+             //    update();
+            // });
+     
+       //  }
+     });
+     
+ }
+
 
 function cretaeCustomNavbar()
 {
