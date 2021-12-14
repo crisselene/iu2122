@@ -98,7 +98,7 @@ function createMovieItem(movie) {
     return `
     <div class"col">
     <div style="height: 300px;" class="card" data-id="${movie.id}">
-    <div style="height: 70px;" class="card-header"">
+    <div style="height: 70px; background-color: rgb(63, 63, 70); color: white;" class="card-header"">
         <h4 class="mb-0" title="${movie.id}">
             ${movie.name} <small><i>(${movie.year})</i></small>
         </h4>
@@ -145,7 +145,7 @@ function createGroupItem(group) {
     return `
     <div class="col">
     <div style="height: 200px;" class="card">
-        <div style="height: 70px;" class="card-header">
+        <div style="height: 70px; background-color: rgb(63, 63, 70); color: white;" class="card-header">
             <h4 class="mb-0" title="${group.id}">
                 <b class="pcard">${group.name}</b>
             </h4>
@@ -180,7 +180,7 @@ function createUserItem(user) {
     return `
     <div class="col">
     <div style="height: 200px;" class="card">
-    <div style="height: 70px;" class="card-header">
+    <div style="height: 70px; background-color: rgb(63, 63, 70); color: white;" class="card-header">
         <h4 class="mb-0" title="${user.id}">
             <b class="pcard">${user.username}</b>
         </h4>
