@@ -1,40 +1,23 @@
-# Grupo 5
+# PeliMax, proyecto de iu2122
+## Integrantes Grupo 5 🧑‍🤝‍🧑
+
 Los integrantes del grupo son Pablo Martínez, Eros Guerrero, Andrés Romero , Alberto Pascual y Cristina Díez.
 
-Cambios respecto a la práctica 5
-La práctica 5 la diseñamos para móvil, así que no vamos a reutilizar prácticamente nada de ella. Además en esta entrega nos hemos centrado en implementar funcionalidad básica y no en diseño
+## Cambios respecto a la práctica 5 🩹
+La práctica 5 la diseñamos para móvil, así que no vamos a reutilizar prácticamente nada de ella. Ahora tenemos un nuevo nombre de la aplicación web llamada "PeliMax" en la cual predominan los colores azules y grises. 
 
-En cuanto a la funcionalidad, de la parte básica solo nos falta modificar grupo, porque queremos preguntar algo al respecto en la siguiente clase
+## Funcionalidad 🤖
+En cuanto a la funcionalidad, nos permite iniciar sesión con ususarios administradores , los cuales pueden ver las películas,los grupos y los usuarios disponibles.
+Los usuarios normales pueden acceder a las películas y los grupos.
 
-# iu2122
+Podemos añadir películas,eliminarlas y editarlas. 
+Se pueden añadir grupos, eliminarlos y editarlos tanto si eres el dueño como si eres administrador.
 
-Servidor y código de plantilla para una interfaz de gestión de valoraciones de películas, a usar para las prácticas de la asignatura *Interfaces de Usuario* de los grados de Informática de la Universidad Complutense, en su edición 2021-22.
+Nos faltaría añadir funcionalidad extra como calcular la media de las valoraciones de una película.
 
-## Práctica
+## Lenguajes 📚
 
-Implementa la interfaz que propusiste en tu Práctica 5 (Diseño de una GUI) usando Boostrap 5, *sin* JQuery. Tendrás que usar
 - HTML
 - JavaScript
 - CSS
-
-Para ello, haz un "fork" de este proyecto, y toca únicamente los siguientes ficheros y directorios (todos ellos bajo [main/src/main/resources/static](https://github.com/manuel-freire/iu2122/blob/main/src/main/resources/static/)):
-- [index.html](https://github.com/manuel-freire/iu2122/blob/main/src/main/resources/static/index.html), donde escribirás todo el HTML estático (es decir, el que existe al cargar la página, en lugar de generarse dinámicamente vía `pmgr.js`)
-- [js/pmgr.js](https://github.com/manuel-freire/iu2122/blob/main/src/main/resources/static/js/pmgr.js), donde escribirás todo el JS que genera HTML y realiza peticiones a la [API](https://github.com/manuel-freire/iu2122/blob/main/src/main/resources/static/js/pmgrapi.js) para interactuar con el servidor. *Por favor, no modifiques la API en sí*.
-- [css/custom.css](https://github.com/manuel-freire/iu2122/blob/main/src/main/resources/static/css/custom.js), donde escribirás reglas CSS para estilar tu página tal y como quieres, modificando los estilos por defecto de Bootstrap 5.
-- Puedes incorporar css/scripts/imágenes en sus respectivas carpetas (`css`, `js`, `img`). **Evita** introducir dependencias a código externo, entendido como código que cargas de fuera de tu aplicación. Sí puedes (si su licencia lo permite) introducir dependencias copiándolas a las respectivas carpetas, previa consulta al profesor.
-
-### Entorno de desarrollo
-
-Necesitarás un servidor local para lanzar tu página. Hay muchos disponibles:
-- si tienes PHP instalado, puedes, desde la carpeta `static`, lanzar `php -S localhost:8000` (y luego abres un navegador apuntando a localhost:8000`)
-- si tienes Python3 instalado, puedes usar, desde la carpeta `static`, `python -m http.server 8000` (y luego abres un navegador apuntando a localhost:8000`)
-- (recomendado) si usas VS Code, puedes instalar la extensión "Live Server", y lanzar el servidor vía click derecho desde `index.html` + `Open with Live Server`.
-
-## Resto del código
-
-La aplicación de servidor funciona con Spring Boot, y puedes lanzarla en local y/o jugar con ella libremente. Para lanzarla, necesitarás tener `maven` y una JDK >= 8.0 instaladas. Basta con ejecutar `mvn spring-boot:run` para lanzar todo en local. Archivos importantes:
-- Configuración de la aplicación: [application.properties](https://github.com/manuel-freire/iu2122/blob/main/src/main/resources/application.properties)
-- Contraseñas y contenido inicial de la BD: [import.sql](https://github.com/manuel-freire/iu2122/blob/main/src/main/resources/import.sql)
-
-*El profesor proporcionará un servidor (con configuración cambiada con respecto a la anterior) que permanecerá encendido hasta el fin de las prácticas de la asignatura. Lanzar o no otro servidor en local, o jugar con el codigo, es completamente opcional. Ver [licencia](https://github.com/manuel-freire/iu2122/blob/main/LICENSE)*
 
