@@ -138,7 +138,7 @@ function createGroupItem(group) {
     let allPending = group.requests.map((id) => Pmgr.resolve(id)).map(r =>
         `<span class="badge bg-${waitingForGroup(r) ? "warning" : "info"}"
             title="Esperando aceptación de ${waitingForGroup(r) ? "grupo" : "usuario"}">
-            ${Pmgr.resolve(r.user).username}<button style="border:0px; background-color:transparent;" class="edit" data-id="${r.id}">✏️</button></span>
+            ${Pmgr.resolve(r.user).username}<button style="border:0px; background-color:transparent;" class="editRequest" data-id="${r.id}">✏️</button></span>
             `
 //metido arriba un boton por cada request, el cual guarda ademas en dat-id la id de la request
     ).join(" ");
@@ -152,7 +152,7 @@ function createGroupItem(group) {
             </h4>
         </div>
         <div class="card-body pcard">
-            <div class="row-sm-11">
+            <div class="row-sm-11" id="infoGroup">
                 <span class="badge bg-primary">${Pmgr.resolve(group.owner).username}</span>
                 ${allMembers}
                 ${allPending}
@@ -414,23 +414,45 @@ function update() {
 
                     //const request = new Pmgr.Request(-1,userId,groupId, Pmgr.RequestStatus.AWAITING_GROUP);
                    // Pmgr.addRequest(request)//.then(() =>{
-                    Pmgr.addRequest({user: userId, group: groupId, status: Pmgr.RequestStatus.AWAITING_GROUP});
+                    Pmgr.addRequest({id: -1, user: userId, group: groupId, status: Pmgr.RequestStatus.AWAITING_GROUP});
                    //     f.reset();
                    //     update();
                    // });
                     modalRequestAdded.show();
 
-                 /*   const id = e.target.dataset.id; // lee el valor del atributo data-id del boton
-                    const movie = Pmgr.resolve(id);
-                    const formulario = document.querySelector("#movieEditForm");
-                    for (let [k, v] of Object.entries(movie)) {
-                        // rellenamos el formulario con los valores actuales
-                        const input = formulario.querySelector(`input[name="${k}"]`);
-                        if (input) input.value = v;
-                    }
-    */
                    // modalEditMovie.show(); // ya podemos mostrar el formulario
                 }));
+
+                //boton editar request
+                document.querySelectorAll("#infoGroup button.editRequest").forEach(b =>
+                    b.addEventListener('click', e => {
+                        
+                        let actualUser = Pmgr.resolve(userId);
+                        //const idGrupo = e.target.dataset.idGrupo; // lee el valor del atributo data-id del boton
+                        //console.log("id grupo: " + idGrupo);
+                        const id = e.target.dataset.id; // lee el valor del atributo data-id del boton
+                        const requestData = Pmgr.resolve(id);
+                        const groupInfo= Pmgr.resolve(requestData.group);
+        
+                        if(actualUser.role == "ADMIN,USER" || actualUser.id == groupInfo.owner)
+                        {
+                            //permisos
+                            const id = e.target.dataset.id; // lee el valor del atributo data-id del boton
+                           const requestData = Pmgr.resolve(id);
+                           idRequestToModify = id;
+                           console.log("boton editar request con id" + id + " pulsado");//id de la request correcta
+                           modalModifyRequest.show();
+                        }
+                        else
+                        {
+                            //no permisos
+                            console.log("no tienes permisos para dicha accion");
+                            modalNoPermisos.show();
+                        }
+                        //else if()
+                        
+                    }));
+
 
 // botones de editar usuarios
 document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
@@ -555,6 +577,10 @@ const modalRateMovie = new bootstrap.Modal(document.querySelector('#movieRate'))
 const modalEditUser = new bootstrap.Modal(document.querySelector('#userEdit')); //modal modificar usuario
 const modalLogin = new bootstrap.Modal(document.querySelector('#modalLogin')); //modal para login
 const modalRequestAdded = new bootstrap.Modal(document.querySelector('#modalRequestAdded')); //modal confirmacion request
+const modalModifyRequest = new bootstrap.Modal(document.querySelector('#modalModifyRequest')); //modal editar request
+const modalNoPermisos = new bootstrap.Modal(document.querySelector('#modalNoPermiso')); //modal no permisos
+
+
 const modalDelMovie = new bootstrap.Modal(document.querySelector('#modalDelMovie')); // modal para eliminar o no pelicula
 
 // si lanzas un servidor en local, usa http://localhost:8080/
@@ -849,33 +875,56 @@ return`
 }*/
 
 //boton aceptar modal confirmacion envio requets a grupo
-{
-
-    // const f = document.querySelector("#loginForm");
-     
+{   
      document.querySelector("#modalRequestAdded button.accept").addEventListener('click', e => {
          //console.log("boton aceptar login pulsado");
         
              modalRequestAdded.hide();
               update();
-         
-            //  });;           
-            /*    const us = new Pmgr.User(-1,
-                f.querySelector('input[name="name"]').value,
-                f.querySelector('input[name="passw"]').value);
-                Pmgr.addUser(us).then(() => {   
-                    f.reset();
-                     update();
-             });*/
-     
-         //    Pmgr.addUser(us).then(() => {
-           //      //formulario.reset() // limpia el formulario si todo OK
-             //    update();
-            // });
-     
-       //  }
-     });
-     
+     });   
+}
+
+//boton aceptar modal no permisos
+{
+    document.querySelector("#modalNoPermiso button.accept").addEventListener('click', e => {
+         modalNoPermisos.hide();
+             update();
+    }); 
+}
+
+let idRequestToModify = -1;
+//modal aceptar/rechazar request
+{
+    //boton aceptar solicitud
+     document.querySelector("#modalModifyRequest button.aceptar").addEventListener('click', e => {
+         console.log("id request desde el modal "+ idRequestToModify); //hasta aqui bien
+        
+        const requestData = Pmgr.resolve(idRequestToModify);
+      //  Pmgr.setRequest({id:idRequestToModify, status: Pmgr.RequestStatus.ACCEPTED});
+        //const request = new Pmgr.Request({id: id, user: requestData.user, group: requestData.group, status: Pmgr.RequestStatus.ACCEPTED}); //no coge bien el id no se porque
+        const request = new Pmgr.Request(idRequestToModify, requestData.user, requestData.group, Pmgr.RequestStatus.ACCEPTED);
+        Pmgr.setRequest(request).then(() => {
+            modalModifyRequest.hide(); // oculta el formulario
+            update();
+        }).catch(e => console.log(e));
+
+    });
+
+        //boton rechazar solicitud
+        document.querySelector("#modalModifyRequest button.rechazar").addEventListener('click', e => {
+            console.log("id request desde el modal "+ idRequestToModify); //hasta aqui bien
+           
+           const requestData = Pmgr.resolve(idRequestToModify);
+         //  Pmgr.setRequest({id:idRequestToModify, status: Pmgr.RequestStatus.ACCEPTED});
+           //const request = new Pmgr.Request({id: id, user: requestData.user, group: requestData.group, status: Pmgr.RequestStatus.ACCEPTED}); //no coge bien el id no se porque
+           const request = new Pmgr.Request(idRequestToModify, requestData.user, requestData.group, Pmgr.RequestStatus.REJECTED);
+           Pmgr.setRequest(request).then(() => {
+               modalModifyRequest.hide(); // oculta el formulario
+               update();
+           }).catch(e => console.log(e));
+
+        });
+           
  }
 
 

@@ -173,6 +173,53 @@
     </div>
 </div>
 
+<!-- Modal para confirmacion solicitud-->
+<div class="modal fade" id="modalRequestAdded" tabindex="-1" aria-labelledby="userEditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userEditLabel">Solicitud enviada</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary accept">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para modificar estado request-->
+<div class="modal fade" id="modalModifyRequest" tabindex="-1" aria-labelledby="userEditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userEditLabel">Aceptar/Rechazar solicitud</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary aceptar">Aceptar</button>
+                <button type="button" class="btn btn-primary rechazar">Rechazar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal aviso sin permisos-->
+<div class="modal fade" id="modalNoPermiso" tabindex="-1" aria-labelledby="userEditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userEditLabel">No tienes permiso para realizar esta accion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary accept">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -218,8 +265,8 @@
     </nav>
 -->
 
-<!-- Modal para confirmacion solicitud-->
-<div class="modal fade" id="modalRequestAdded" tabindex="-1" aria-labelledby="userEditLabel" aria-hidden="true">
+<!-- Modal para confirmacion (anterior) solicitud-->
+<!--<div class="modal fade" id=0"modalRequestAdded" tabindex="-1" aria-labelledby="userEditLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -231,7 +278,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <!-- Modal para eliminar pelicula -->
 <div class="modal fade" id="modalDelMovie" tabindex="-1" aria-labelledby="delMovieLabel" aria-hidden="true">
