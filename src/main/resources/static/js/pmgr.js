@@ -387,7 +387,8 @@ function update() {
         document.querySelectorAll(".iucontrol.movie button.rm").forEach(b =>
             b.addEventListener('click', e => {
                 const id = e.target.dataset.id; // lee el valor del atributo data-id del boton
-                Pmgr.rmMovie(id).then(update);
+                confirmacionDelMovie(id);
+                //Pmgr.rmMovie(id).then(update);
             }));
         // botones de editar películas
         document.querySelectorAll(".iucontrol.movie button.edit").forEach(b =>
@@ -554,6 +555,8 @@ const modalRateMovie = new bootstrap.Modal(document.querySelector('#movieRate'))
 const modalEditUser = new bootstrap.Modal(document.querySelector('#userEdit')); //modal modificar usuario
 const modalLogin = new bootstrap.Modal(document.querySelector('#modalLogin')); //modal para login
 const modalRequestAdded = new bootstrap.Modal(document.querySelector('#modalRequestAdded')); //modal confirmacion request
+const modalDelMovie = new bootstrap.Modal(document.querySelector('#modalDelMovie')); // modal para eliminar o no pelicula
+
 // si lanzas un servidor en local, usa http://localhost:8080/
 const serverUrl = "http://gin.fdi.ucm.es/iu/";
 
@@ -929,9 +932,7 @@ function customNavbarAdminHTML()
         </li>
     </ul>
 
-    <!--<div id="prueba" >
-    <button type="button" class="btn btn-primary log">Iniciar Sesion</button>
-    </div>-->
+    
     `;
 }
 
@@ -952,9 +953,7 @@ function customNavbarAdminHTML2()
     </li>
 
     <!-- contenedor de prueba para poner temporalmente el boton de login-->
-<!--<div id="prueba" >
-<button type="button" class="btn btn-primary log">Iniciar Sesion</button>
-</div>-->
+    
 </ul>
     `;
 }
@@ -975,9 +974,7 @@ function customNavbarUserHTML()
 
     </ul>
 
-    <div id="prueba" >
-    <button type="button" class="btn btn-primary log">Iniciar Sesion</button>
-    </div>
+
     `;
 }
 
@@ -995,9 +992,6 @@ function customNavbarUserHTML2()
                 </li>
             
                 <!-- contenedor de prueba para poner temporalmente el boton de login-->
-<div id="prueba" >
-<button type="button" class="btn btn-primary log">Iniciar Sesion</button>
-</div>
             </ul>
     `;
 }
@@ -1012,7 +1006,18 @@ function creteloggingfunction()
     });
 }
 
+function confirmacionDelMovie(id)
+{
+    modalDelMovie.show();
+    document.querySelector("#modalDelMovie button.accept").addEventListener('click', e => {
+        //console.log("boton aceptar login pulsado");
+       
+            modalDelMovie.hide();
+            Pmgr.rmMovie(id).then(update);
+        
+    });
 
+}
 
 
 /**
