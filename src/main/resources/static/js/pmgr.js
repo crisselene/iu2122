@@ -532,7 +532,15 @@ document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
             }));
         // botones de borrar grupos
         document.querySelectorAll(".iucontrol.group button.rm").forEach(b =>
-            b.addEventListener('click', e => Pmgr.rmGroup(e.target.dataset.id).then(update)));
+            b.addEventListener('click', e => {
+                const id = e.target.dataset.id; // lee el valor del atributo data-id del boton
+                confirmacionDelGroup(id);
+                //b.addEventListener('click', e => Pmgr.rmGroup(e.target.dataset.id).then(update)));
+            })
+        );
+            
+
+
         // botones de borrar usuarios
         document.querySelectorAll(".iucontrol.user button.rm").forEach(b => 
             b.addEventListener('click', e => {
@@ -594,6 +602,7 @@ const modalNoPermisos = new bootstrap.Modal(document.querySelector('#modalNoPerm
 
 const modalDelMovie = new bootstrap.Modal(document.querySelector('#modalDelMovie')); // modal para eliminar o no pelicula
 const modalDelUser = new bootstrap.Modal(document.querySelector('#modalDelUser')); // modal para eliminar o no usuario
+const modalDelGroup = new bootstrap.Modal(document.querySelector('#modalDelGroup')); // modal para eliminar o no grupo
 
 // si lanzas un servidor en local, usa http://localhost:8080/
 const serverUrl = "http://gin.fdi.ucm.es/iu/";
@@ -1071,13 +1080,10 @@ function confirmacionDelMovie(id)
 {
     modalDelMovie.show();
     document.querySelector("#modalDelMovie button.accept").addEventListener('click', e => {
-        //console.log("boton aceptar login pulsado");
-       
+        //console.log("boton aceptar login pulsado");       
             modalDelMovie.hide();
-            Pmgr.rmMovie(id).then(update);
-        
+            Pmgr.rmMovie(id).then(update);       
     });
-
 }
 
 
@@ -1085,10 +1091,20 @@ function confirmacionDelUser(id)
 {
     modalDelUser.show();
     document.querySelector("#modalDelUser button.accept").addEventListener('click', e => {
+        //console.log("boton aceptar login pulsado");    
+            modalDelUser.hide();
+            Pmgr.rmUser(id).then(update);   
+    });
+}
+
+function confirmacionDelGroup(id)
+{
+    modalDelGroup.show();
+    document.querySelector("#modalDelGroup button.accept").addEventListener('click', e => {
         //console.log("boton aceptar login pulsado");
        
-            modalDelUser.hide();
-            Pmgr.rmUser(id).then(update);
+            modalDelGroup.hide();
+            Pmgr.rmGroup(id).then(update);
         
     });
 
