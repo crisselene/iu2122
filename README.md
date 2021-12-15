@@ -1,4 +1,5 @@
-# PeliMax, proyecto de iu2122
+![pelimax](https://user-images.githubusercontent.com/35759827/146272231-c1709063-02fe-4ca5-85a6-0401dbb33fd6.png) 
+# proyecto de iu2122
 ## Integrantes Grupo 5 🧑‍🤝‍🧑
 
 Los integrantes del grupo son Pablo Martínez, Eros Guerrero, Andrés Romero , Alberto Pascual y Cristina Díez.
