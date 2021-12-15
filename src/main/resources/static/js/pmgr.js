@@ -535,8 +535,19 @@ document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
             b.addEventListener('click', e => Pmgr.rmGroup(e.target.dataset.id).then(update)));
         // botones de borrar usuarios
         document.querySelectorAll(".iucontrol.user button.rm").forEach(b => 
-            b.addEventListener('click', e => Pmgr.rmUser(e.target.dataset.id).then(update))
+            b.addEventListener('click', e => {
+                const id = e.target.dataset.id; // lee el valor del atributo data-id del boton
+                confirmacionDelUser(id);
+                //Pmgr.rmUser(e.target.dataset.id).then(update);
+            })
         );
+
+        /*document.querySelectorAll(".iucontrol.movie button.rm").forEach(b =>
+            b.addEventListener('click', e => {
+                const id = e.target.dataset.id; // lee el valor del atributo data-id del boton
+                confirmacionDelMovie(id);
+                //Pmgr.rmMovie(id).then(update);
+            }));*/
 
 
     } catch (e) {
@@ -582,6 +593,7 @@ const modalNoPermisos = new bootstrap.Modal(document.querySelector('#modalNoPerm
 
 
 const modalDelMovie = new bootstrap.Modal(document.querySelector('#modalDelMovie')); // modal para eliminar o no pelicula
+const modalDelUser = new bootstrap.Modal(document.querySelector('#modalDelUser')); // modal para eliminar o no usuario
 
 // si lanzas un servidor en local, usa http://localhost:8080/
 const serverUrl = "http://gin.fdi.ucm.es/iu/";
@@ -1063,6 +1075,20 @@ function confirmacionDelMovie(id)
        
             modalDelMovie.hide();
             Pmgr.rmMovie(id).then(update);
+        
+    });
+
+}
+
+
+function confirmacionDelUser(id)
+{
+    modalDelUser.show();
+    document.querySelector("#modalDelUser button.accept").addEventListener('click', e => {
+        //console.log("boton aceptar login pulsado");
+       
+            modalDelUser.hide();
+            Pmgr.rmUser(id).then(update);
         
     });
 
