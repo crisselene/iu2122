@@ -419,6 +419,10 @@ function update() {
                    //     update();
                    // });
                     modalRequestAdded.show();
+                   
+//                toastRequest.show(); //antes se hacia con un modal
+//                update();
+                
 
                    // modalEditMovie.show(); // ya podemos mostrar el formulario
                 }));
@@ -607,6 +611,9 @@ const modalDelGroup = new bootstrap.Modal(document.querySelector('#modalDelGroup
 const modalContraInco = new bootstrap.Modal(document.querySelector('#modalContraInco')); // modal contra incorrecta
 const modalUsNoReg = new bootstrap.Modal(document.querySelector('#modalUsNoReg')); // modal contra incorrecta
 
+const toastUser = new bootstrap.Toast(document.querySelector('#toastAddUser'));
+const toastGroup = new bootstrap.Toast(document.querySelector('#toastAddGroup'));
+const toastRequest = new bootstrap.Toast(document.querySelector('#toastAddRequest'));
 // si lanzas un servidor en local, usa http://localhost:8080/
 const serverUrl = "http://gin.fdi.ucm.es/iu/";
 
@@ -725,7 +732,10 @@ login("g5", "8rACc"); // <-- tu nombre de usuario y password aquí
                Pmgr.addUser(us).then(() => {   
                    f.reset();
                     update();
+                    toastUser.show();
             });
+
+            
         }
         else{
             e.preventDefault();
@@ -817,8 +827,10 @@ login("g5", "8rACc"); // <-- tu nombre de usuario y password aquí
                 Pmgr.addGroup({name: f.querySelector('input[name="name"]').value, owner:uid}).then(() =>{
                     f.reset();
                     update();
+                    toastGroup.show();
                 });
 
+                
 
 //f.querySelector('input[name="name"]').value
              //  userId = Pmgr.state.users.find(u =>
