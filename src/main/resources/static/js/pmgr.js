@@ -563,13 +563,13 @@ document.querySelectorAll(".iucontrol.user button.edit").forEach(b =>
     }
 
     /* para que siempre muestre los últimos elementos disponibles */
-    activaBusquedaDropdown('#dropdownBuscablePelis',
+   /* activaBusquedaDropdown('#dropdownBuscablePelis',
         (select) => {
             empty(select);
             Pmgr.state.movies.forEach(m =>
                 appendTo(select, `<option value="${m.id}">${m.name}</option>`));
         }
-    );
+    );*/
 
 
 }
@@ -604,6 +604,9 @@ const modalDelMovie = new bootstrap.Modal(document.querySelector('#modalDelMovie
 const modalDelUser = new bootstrap.Modal(document.querySelector('#modalDelUser')); // modal para eliminar o no usuario
 const modalDelGroup = new bootstrap.Modal(document.querySelector('#modalDelGroup')); // modal para eliminar o no grupo
 
+const modalContraInco = new bootstrap.Modal(document.querySelector('#modalContraInco')); // modal contra incorrecta
+const modalUsNoReg = new bootstrap.Modal(document.querySelector('#modalUsNoReg')); // modal contra incorrecta
+
 // si lanzas un servidor en local, usa http://localhost:8080/
 const serverUrl = "http://gin.fdi.ucm.es/iu/";
 
@@ -627,8 +630,13 @@ const login = (username, password) => {
                 console.log(userId);
         })
         .catch(e => {
-            console.log(e, `error ${e.status} en login (revisa la URL: ${e.url}, y verifica que está vivo)`);
-            console.log(`el servidor dice: "${e.text}"`);
+        //    console.log(e, `error ${e.status} en login (revisa la URL: ${e.url}, y verifica que está vivo)`);
+        //    console.log(`el servidor dice: "${e.text}"`);
+        console.log("error en contraseña");
+                       // f.reset();
+                        modalLogin.hide();
+
+                        modalContraInco.show();
         });
 }
 
@@ -850,34 +858,74 @@ login("g5", "8rACc"); // <-- tu nombre de usuario y password aquí
     document.querySelector("#modalLogin button.login").addEventListener('click', e => {
         console.log("boton aceptar login pulsado");
        if(f.checkValidity()){
-        login(f.querySelector('input[name="name"]').value, f.querySelector('input[name="passw"]').value)//.then(() => {   
+
+            let encontrado = 0;
+            Pmgr.state.users.forEach(o => {
+                if(o.username == f.querySelector('input[name="name"]').value)
+                {
+                    encontrado =1;
+                }
+
+            });
+            console.log("por aqui");
+            if(encontrado == 0)//usuario no registrado
+            {
+                console.log("usuario no registrado");
+                f.reset();
+                modalLogin.hide();
+
+                modalUsNoReg.show();
+
+            }
+            else 
+            {
+                login(f.querySelector('input[name="name"]').value, f.querySelector('input[name="passw"]').value)
+                f.reset();
+               modalLogin.hide();
+                update();
+        //  const login = (username, password) => {
+                /*Pmgr.login(f.querySelector('input[name="name"]').value, f.querySelector('input[name="passw"]').value) // <-- tu nombre de usuario y password aquí
+                    .then(d => {
+                        console.log("login ok!", d);
+            //          update(d);
+                        userId = Pmgr.state.users.find(u =>
+                            u.username == username).id;
+                            //finalmente creamos e insertamos el navbar en funcion del rol del usuario
+                            cretaeCustomNavbar();
+                            update(d); //hacemos update despues de saber la id del usuario actual, para poder mostrar un navbar u otro en funcion de su rol
+                            console.log(userId);
+                    })
+                    .catch(e => { //contrasenia no correcta
+                    //   console.log(e, `error ${e.status} en login (revisa la URL: ${e.url}, y verifica que está vivo)`);
+                    //  console.log(`el servidor dice: "${e.text}"`);
+                        console.log("error en contraseña");
+                        f.reset();
+                        modalLogin.hide();
+
+                        modalContraInco.show();
+                    });*/
+            //    }
+            }
+    /*       try {
+    //el bueno          login(f.querySelector('input[name="name"]').value, f.querySelector('input[name="passw"]').value)
+            } catch (error) {
+                console.log("error al iniciar sesion");
+            }*/    
+
+            //se ejecuta siempre 
+  //              f.reset();
+ //               modalLogin.hide();
+//                update();
             
-            f.reset();
-            modalLogin.hide();
-             update();
-        
-           //  });;           
-           /*    const us = new Pmgr.User(-1,
-               f.querySelector('input[name="name"]').value,
-               f.querySelector('input[name="passw"]').value);
-               Pmgr.addUser(us).then(() => {   
-                   f.reset();
-                    update();
-            });*/
-        }
+        }//sino checkvalidity
         else{
             e.preventDefault();
             f.querySelector("button[type=submit]").click();
             console.log("fallo");
-        }
-    
-        //    Pmgr.addUser(us).then(() => {
-          //      //formulario.reset() // limpia el formulario si todo OK
-            //    update();
-           // });
-    
-      //  }
+        }  
+
     });
+
     
 }
 
@@ -909,6 +957,24 @@ return`
 {
     document.querySelector("#modalNoPermiso button.accept").addEventListener('click', e => {
          modalNoPermisos.hide();
+             update();
+    }); 
+}
+
+//boton aceptar modal contra incorrecta
+{
+    document.querySelector("#modalContraInco button.accept").addEventListener('click', e => {
+         modalContraInco.hide();
+         modalLogin.show();
+             update();
+    }); 
+}
+
+//boton aceptar modal usuario no reg
+{
+    document.querySelector("#modalUsNoReg button.accept").addEventListener('click', e => {
+         modalUsNoReg.hide();
+         modalLogin.show();
              update();
     }); 
 }
